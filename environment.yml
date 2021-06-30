@@ -8,4 +8,6 @@ dependencies:
   - python
   - pytest
   - pytest-cov
+  - numpy
+  - matplotlib
 prefix: /Users/annaleigh/opt/anaconda3/envs/patient
