@@ -1,0 +1,11 @@
+name: patient
+channels:
+  - bioconda
+  - r
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.8
+  - pytest
+  - pytest-cov
+prefix: /Users/annaleigh/opt/anaconda3/envs/patient
