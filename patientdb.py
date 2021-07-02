@@ -1,3 +1,5 @@
+# file: patientdb.py
+
 #!/usr/bin/env python3
 """Software for managing patient data in our imaginary hospital."""
 
@@ -13,18 +15,25 @@ def main(args):
     - selecting the necessary models and views for the current task
     - passing data between models and views
     """
-    InFiles = args.infiles
-    if not isinstance(InFiles, list):
+    infiles = args.infiles
+    if not isinstance(infiles, list):
         infiles = [args.infiles]
 
-    for filename in InFiles:
+    for filename in infiles:
         inflammation_data = models.load_csv(filename)
 
-        view_data = {'average': models.daily_mean(inflammation_data),
-                     'max': models.daily_max(inflammation_data),
-                     'min': models.daily_min(inflammation_data)}
+        if args.view == 'visualize':
+            view_data = {
+                'average': models.daily_mean(inflammation_data),
+                'max': models.daily_max(inflammation_data),
+                'min': models.daily_min(inflammation_data),
+            }
 
-        views.visualize(view_data)
+            views.visualize(view_data)
+
+        elif args.view == 'record':
+            patient = models.Patient('UNKNOWN', inflammation_data[0])
+            views.display_patient_record(patient)
 
 
 if __name__ == "__main__":
@@ -35,6 +44,18 @@ if __name__ == "__main__":
         'infiles',
         nargs='+',
         help='Input CSV(s) containing inflammation series for each patient')
+
+    parser.add_argument(
+        '--view',
+        default='visualize',
+        choices=['visualize', 'record'],
+        help='Which view should be used?')
+
+    parser.add_argument(
+        '--patient',
+        type=int,
+        default=-1,
+        help='Which patient should be displayed?')
 
     args = parser.parse_args()
 

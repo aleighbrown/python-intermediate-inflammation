@@ -3,6 +3,10 @@
 from matplotlib import pyplot as plt
 import numpy as np
 
+def display_patient_record(patient):
+    """Display data for a single patient."""
+    print(patient.name)
+    print(patient.observations)
 
 def visualize(data_dict):
     """Display plots of basic statistical properties of the inflammation data.

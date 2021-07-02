@@ -64,6 +64,59 @@ def patient_normalise(data):
     normalised[np.isnan(normalised)] = 0
     normalised[normalised < 0] = 0
     return normalised
+
+def attach_names(data,names):
+    """Create datastructure containing patient records.
+
+    :param data: 2D array of inflammation data
+    :param name: a list of strings which contain patient names
+
+    :type data: ndarray
+    :type name: list
+    """
+    assert len(data) == len(names)
+    output = []
+
+    for data_row, name in zip(data, names):
+        output.append({'name': name,
+                       'data': data_row})
+
+    return output
+
+class Person:
+    def __init__(self, name):
+        self.name = name
+
+    def __str__(self):
+        return self.name
+
+
+class Patient:
+    def __init__(self, name, observations=None):
+        self.name = name
+
+        if observations is None:
+            self.observations = []
+
+        else:
+            self.observations = observations
+
+    def add_observation(self, obs):
+        self.observations.append(obs)
+
+class Doctor(Person):
+    def __init__(self, name, patients=None):
+        super().__init__(name)
+        if patients is None:
+            patients = []
+        if len(patients) > 0 and not all(isinstance(x, Patient) for x in patients):
+            raise TypeError('patients needs to be a list of Patients')
+        self.patients = patients
+
+
+
+
+
 # TODO(lesson-design) Add Patient class
 # TODO(lesson-design) Implement data persistence
 # TODO(lesson-design) Add Doctor class
