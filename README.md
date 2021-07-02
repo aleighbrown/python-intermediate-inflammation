@@ -53,6 +53,8 @@ optional arguments:
 ```
 
 # Contributing
+
+
 Make a pull request, and we're happy to take any sensible contributions. 
 We have yet to integrate patient name linking and the plotting capability is limited as of now. 
 

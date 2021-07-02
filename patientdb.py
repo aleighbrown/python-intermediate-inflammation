@@ -32,7 +32,7 @@ def main(args):
             views.visualize(view_data)
 
         elif args.view == 'record':
-            patient = models.Patient('UNKNOWN', inflammation_data[0])
+            patient = models.Patient('UNKNOWN', inflammation_data[args.patient])
             views.display_patient_record(patient)
 
 
